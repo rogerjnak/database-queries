@@ -14,6 +14,21 @@ export class migration1616108470200 implements MigrationInterface {
       'CREATE TABLE "users_games_games" ("usersId" uuid NOT NULL, "gamesId" uuid NOT NULL, CONSTRAINT "PK_cd4067d574477fd5c7693bc7872" PRIMARY KEY ("usersId", "gamesId"))',
     );
     await queryRunner.query(
+      'CREATE TABLE "genres" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "name" character varying NOT NULL, PRIMARY KEY ("id"))',
+    );
+    await queryRunner.query(
+      'CREATE TABLE "games_genres_genres" ("gamesId" uuid NOT NULL, "genresId" uuid NOT NULL, PRIMARY KEY ("gamesId", "genresId"))',
+    );
+    await queryRunner.query(
+      'CREATE TABLE "orders" ("id" uuid NOT NULL DEFAULT uuid_generate_v4(), "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), PRIMARY KEY ("id"))',
+    );
+    await queryRunner.query(
+      'CREATE TABLE "orders_games_games" ("ordersId" uuid NOT NULL, "gamesId" uuid NOT NULL, "quantity" number, PRIMARY KEY ("ordersId", "gamesId"))',
+    );
+    await queryRunner.query(
+      'CREATE TABLE "orders_users_user" ("ordersId" uuid NOT NULL, "userId" uuid NOT NULL, PRIMARY KEY ("gamesId", "userId"))',
+    );
+    await queryRunner.query(
       'CREATE INDEX "IDX_e5263d029d8644de829aae5c35" ON "users_games_games" ("usersId") ',
     );
     await queryRunner.query(
